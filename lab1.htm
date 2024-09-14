@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 id = "page_title">Checkout form</h2>
+    <p id ="contents">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+
+    <p>Billing address</p><br/>
+    <div class ="name">
+        <label for="firstname">First name</label> 
+        <br>
+        <input type ="text" name ="name">      
+
+    </div >
+
+    <div class ="name">
+        <label for="lastname">Last name</label> 
+        <input type ="text" name ="name">
+
+    </div>
+
+    <div>
+        username<br>
+        <input type ="text" name ="username" placeholder=" Username">
+        <br>
+        email (Optional)<br>
+        <input type ="text" name ="email" placeholder=" you@example.com">
+        <p>Adress</p>
+        <input type ="text" name ="address" placeholder=" 1234 Main St">
+        <p>Adress2</p>
+        <input type ="text" name ="address 2 (Optional)" placeholder=" Apartment or suite">
+        <br>
+        country
+        <select name ="country">
+            <option value ="op1">Choose...</option>
+            <option value ="op2">United States</option>
+        </select>
+
+        <select name ="state">
+            <option value ="op1">Choose...</option>
+            <option value ="op2">California</option>
+        </select>
+
+        <input type ="text" name ="zip_num">
+
+    </div>
+
+    
+    <div>
+        <input type="checkbox"/>
+        Shipping address is the same as my billing address
+
+        <input type="checkbox"/>
+        Save this information for next time
+    </div>
+
+    <div>
+        <h2>Payment</h2>
+
+        <input type ="radio" name ="select"> Credit card
+        <br>
+        <input type ="radio" name ="select"> Debit card
+        <br>
+        <input type ="radio" name ="select"> PayPal
+    </div>
+
+    <div>
+        Name on card
+        Credit card number<br>
+        <input type ="text" name ="name">
+        <input type ="text" name ="name">
+        <p >Full name as displayed on card</p>
+
+    </div>
+
+    <div>
+        Expiraton
+        CVV<br>
+        <input type ="number" name ="name">
+        <input type ="number" name ="name">
+        <br/>
+        date on the card
+        <input type="date" name ="day">
+
+    </div>
+
+    any requirements for delivery
+    <textarea name = "requirements"></textarea>
+
+    <input type ="button" value ="Continue to checkout">
+    
+</body>
+</html>

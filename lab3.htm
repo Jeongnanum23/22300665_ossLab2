@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Form</title>
+
+    <style>
+        body {
+            font-size: 1rem;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            margin: 0 5%;
+            background-color: #f8f9fa;
+        }
+
+        .name_container {
+            display: flex;
+            gap: 20px; 
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="email"], select, input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
+
+        input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-top: 15px;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            background-color: #0d6efd;
+            color: white;
+            font-size: 20px;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0b5ed7;
+        }
+
+    </style>
+
+</head>
+<body>
+    <h2 id="page_title" style="text-align: center;">Checkout form</h2>
+    <p id="contents" style="text-align: center; font-size: 1.25rem; font-weight: 300;">
+        Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.
+    </p>
+
+    <form id="checkout_form">
+        <p style="font-weight: 700; font-size: 1.05rem;">Billing address</p><br/>
+
+        <div class="name_container">
+            <div>
+                <label for="firstname">First name</label> 
+                <input type="text" id="firstname" name="firstname">
+            </div>
+
+            <div>
+                <label for="lastname">Last name</label> 
+                <input type="text" id="lastname" name="lastname">
+            </div>
+        </div>
+
+        <div>
+            <label>Username</label><br>
+            <input type="text" id="username" placeholder="Username">
+            <br><br>
+            
+            <label>Email (Optional)</label><br>
+            <input type="email" id="email" placeholder="you@example.com">
+            <br><br>
+
+            <label>Address</label><br>
+            <input type="text" id="address" placeholder="1234 Main St">
+            <br><br>
+
+            <label>Address 2 (Optional)</label><br>
+            <input type="text" id="address2" placeholder="Apartment or suite">
+            <br><br>
+        </div>
+
+        <div class="name_container">
+            <div>
+                <label>Country</label>
+                <select name="country">
+                    <option value="op1">Choose...</option>
+                    <option value="op2">United States</option>
+                </select>
+            </div>
+
+            <div>
+                <label>State</label>
+                <select name="state">
+                    <option value="op1">Choose...</option>
+                    <option value="op2">California</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Zip</label>
+                <input type="text" id="zip">
+            </div>
+        </div>
+
+        <hr/>
+        <div>
+            <input type="checkbox"/> Shipping address is the same as my billing address
+            <br><br>
+            <input type="checkbox"/> Save this information for next time
+        </div>
+        <hr/>
+
+        <div>
+            <h2>Payment</h2>
+            <input type="radio" name="select"> Credit card
+            <br>
+            <input type="radio" name="select"> Debit card
+            <br>
+            <input type="radio" name="select"> PayPal
+        </div>
+        <br/>
+
+        <div class="name_container">
+            <div>
+                <label>Name on card</label>
+                <input type="text" id="name_on_card">
+            </div>
+
+            <div>
+                <label>Credit card number</label>
+                <input type="text" id="card_number">
+            </div>
+        </div>
+
+        <p style="color: grey; font-size: 13px;">Full name as displayed on card</p>
+
+        <div>
+            <label>Expiration</label>
+            <label style="margin-left: 70px;">CVV</label><br>
+            <input type="text" name="expiration" style="width: 150px;">
+            <input type="text" name="cvv" style="width: 100px;">
+        </div>
+
+        <br/>
+        <p>Date for delivery</p>
+        <input type="date" name="day">
+
+        <br/>
+        <p>Any requirements for delivery</p>
+        <textarea name="requirements"></textarea>
+        <br/>
+        <hr/>
+
+        <input type="button" value="Continue to checkout" onclick="validate_form()">
+    </form>
+
+    <script>
+        function validate_form() {
+            var first_name = document.getElementById("firstname");
+            var last_name = document.getElementById("lastname");
+            var user_name = document.getElementById("username");
+            var email = document.getElementById("email");
+            var address = document.getElementById("address");
+            var zip_number = document.getElementById("zip");
+            var card_name = document.getElementById("name_on_card");
+            var card_num = document.getElementById("card_number");
+
+            if (first_name.value == ""||last_name.value =="") {
+                alert("Input your name correctly!");
+                first_name.focus();
+                last_name.focus();
+                return false;
+            }
+            if(user_name.value ==""){
+                alert("Input your user name correctly!");
+                user_name.focus();
+                return false;
+            }
+            if(user_name.value.length<7){
+                alert("please input more than 7 characters");
+                user_name.focus();
+                return false;
+            }
+            if(email.value ==""){
+                alert("Input your email correctly!");
+                email.focus();
+                return false;
+            }
+            if(address.value ==""){
+                alert("Input your address correctly!");
+                address.focus();
+                return false;
+            }
+            if(zip.value ==""|| isNaN(zip.value)){
+                alert("Input your zip number correctly!");
+                zip.focus();
+                return false;
+            }
+            if(card_name.value ==""){
+                alert("Input your card name correctly!");
+                zip.focus();
+                return false;
+            }if(card_num.value ==""|| isNaN(card_num.value)){
+                alert("Input your card number correctly!");
+                zip.focus();
+                return false;
+            }
+            
+            
+        }
+    </script>
+</body>
+</html>
