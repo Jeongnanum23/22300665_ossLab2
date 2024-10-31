@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초보 CRUD 예제</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+        }
+
+        .form-group input {
+            padding: 5px;
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            font-size: 14px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        #div_students .student-item {
+            margin-top: 5px;
+            padding: 5px;
+            border: 1px solid white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>friend List</h1>
+
+    <button onclick="getDataFromJSONFile()">데이터 목록 보기</button>
+
+    <div class="form-group">
+        <label for="student_name">이름</label>
+        <input type="text" id="student_name" />
+    </div>
+
+    <div class="form-group">
+        <label for="student_age">나이</label>
+        <input type="number" id="student_age" />
+    </div>
+
+    <div class="form-group">
+        <label for="student_rc">RC</label>
+        <input type="text" id="student_rc" />
+    </div>
+
+    <div class="form-group">
+        <label for="student_id">ID</label>
+        <input type="text" id="student_id" />
+    </div>
+
+    <button onclick="createDataToJSONFile()">데이터 추가</button>
+    <button onclick="updateDataToJSONFile()">데이터 수정</button>
+    <button onclick="deleteDataToJSONFile()">데이터 삭제</button>
+
+    <div id="div_students">
+        
+    </div>
+
+    <script>
+        function getDataFromJSONFile() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://localhost:3000/students");
+            xhr.send();
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    $("#div_students").html("");
+                    let students = JSON.parse(xhr.response);
+                    students.forEach((item) => {
+                        $("#div_students").append("<div class='student-item'>" + item.id + " - " + item.name + "</div>");
+                    });
+                }
+            }
+        }
+
+        function createDataToJSONFile() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:3000/students");
+            xhr.setRequestHeader("content-type", "application/json");
+
+            let data = {
+                name: $("#student_name").val(),
+                age: $("#student_age").val(),
+                rc: $("#student_rc").val()
+            };
+
+            xhr.send(JSON.stringify(data));
+            xhr.onload = () => {
+                if (xhr.status === 201) {
+                    alert("추가 성공!");
+                    getDataFromJSONFile();
+                }
+            }
+        }
+
+        function updateDataToJSONFile() {
+            let id = $("#student_id").val();
+            const xhr = new XMLHttpRequest();
+            xhr.open("PUT", "http://localhost:3000/students/" + id);
+            xhr.setRequestHeader("content-type", "application/json");
+
+            let data = {
+                name: $("#student_name").val(),
+                age: $("#student_age").val(),
+                rc: $("#student_rc").val()
+            };
+
+            xhr.send(JSON.stringify(data));
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    alert("수정 성공!");
+                    getDataFromJSONFile();
+                }
+            }
+        }
+
+        function deleteDataToJSONFile() {
+            let id = $("#student_id").val();
+            const xhr = new XMLHttpRequest();
+            xhr.open("DELETE", "http://localhost:3000/students/" + id);
+            xhr.send();
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    alert("삭제 성공!");
+                    getDataFromJSONFile();
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
